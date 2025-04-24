@@ -3,12 +3,12 @@ import { getEvents } from "@/lib/utils";
 
 type EventsWrapperFetchProps = {
   city: string;
-  page: number;
+  page?: number;
 };
 
 export default async function EventsWrapperFetch({
   city,
-  page,
+  page = 1,
 }: EventsWrapperFetchProps) {
   const { events, totalCount } = await getEvents(city, page);
 

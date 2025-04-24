@@ -4,6 +4,7 @@ import Loading from "./loading";
 import EventsWrapperFetch from "@/components/events-wrapper-fetch";
 import { capitalizeFirstChar } from "@/lib/utils";
 import { Metadata } from "next";
+import { z } from "zod";
 
 type Props = {
   params: {
@@ -23,12 +24,17 @@ export function generateMetadata({ params }: Props): Metadata {
   };
 }
 
+const pageNumberSchema = z.coerce.number().int().positive().optional();
+
 export default async function EventsCityPage({
   params,
   searchParams,
 }: EventsCityPageProps) {
   const city = params.city;
-  const page = searchParams.page ?? 1;
+  const parsedPage = pageNumberSchema.safeParse(searchParams.page);
+  if (!parsedPage.success) {
+    throw new Error("Invalid page number");
+  }
 
   const cityCapitalized = capitalizeFirstChar(city);
 
@@ -38,8 +44,8 @@ export default async function EventsCityPage({
         {city === "all" && "All Events"}
         {city !== "all" && `Events in ${cityCapitalized}`}
       </H1>
-      <Suspense key={city + page} fallback={<Loading />}>
-        <EventsWrapperFetch city={city} page={+page} />
+      <Suspense key={city + parsedPage.data} fallback={<Loading />}>
+        <EventsWrapperFetch city={city} page={parsedPage.data} />
       </Suspense>
     </main>
   );
