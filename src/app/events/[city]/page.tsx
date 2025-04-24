@@ -11,6 +11,10 @@ type Props = {
   };
 };
 
+type EventsCityPageProps = Props & {
+  searchParams: { [key: string]: string | string[] | undefined };
+};
+
 export function generateMetadata({ params }: Props): Metadata {
   const city = params.city;
   const cityCapitalized = capitalizeFirstChar(city);
@@ -19,8 +23,13 @@ export function generateMetadata({ params }: Props): Metadata {
   };
 }
 
-export default async function EventsCityPage({ params }: Props) {
+export default async function EventsCityPage({
+  params,
+  searchParams,
+}: EventsCityPageProps) {
   const city = params.city;
+  const page = searchParams.page ?? 1;
+
   const cityCapitalized = capitalizeFirstChar(city);
 
   return (
@@ -30,7 +39,7 @@ export default async function EventsCityPage({ params }: Props) {
         {city !== "all" && `Events in ${cityCapitalized}`}
       </H1>
       <Suspense fallback={<Loading />}>
-        <EventsWrapperFetch city={city} />
+        <EventsWrapperFetch city={city} page={+page} />
       </Suspense>
     </main>
   );
