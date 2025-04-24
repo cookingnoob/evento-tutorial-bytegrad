@@ -38,7 +38,7 @@ export default async function EventsCityPage({
         {city === "all" && "All Events"}
         {city !== "all" && `Events in ${cityCapitalized}`}
       </H1>
-      <Suspense fallback={<Loading />}>
+      <Suspense key={city + page} fallback={<Loading />}>
         <EventsWrapperFetch city={city} page={+page} />
       </Suspense>
     </main>
