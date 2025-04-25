@@ -1,6 +1,6 @@
 "use client"; // Error boundaries must be Client Components
 
-import H1 from "@/components/header-one";
+import H1 from "@/components/title-one";
 import { useEffect } from "react";
 
 export default function Error({

@@ -1,4 +1,4 @@
-import H1 from "@/components/header-one";
+import H1 from "@/components/title-one";
 import { Suspense } from "react";
 import Loading from "./loading";
 import EventsWrapperFetch from "@/components/events-wrapper-fetch";
