@@ -1,7 +1,7 @@
 "use client";
 import Link from "next/link";
 import React from "react";
-import Logo from "./logo";
+import Logo from "./logo-component";
 import { usePathname } from "next/navigation";
 import { motion } from "framer-motion";
 import { cn } from "@/lib/utils";
@@ -27,14 +27,12 @@ export default function Header() {
                   "text-white": activePathName === r.href,
                   "text-white/50": activePathName !== r.href,
                 }
-              )}
-            >
+              )}>
               <Link href={r.href}>{r.name}</Link>
               {activePathName === r.href && (
                 <motion.div
                   layoutId="header-active-link"
-                  className="bg-accent h-1 w-full absolute bottom-0"
-                ></motion.div>
+                  className="bg-accent h-1 w-full absolute bottom-0"></motion.div>
               )}
             </li>
           ))}
