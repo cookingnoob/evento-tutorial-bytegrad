@@ -1,5 +1,5 @@
+import { getEvents } from "@/lib/server-utils";
 import EventsList from "./events-list";
-import { getEvents } from "@/lib/utils";
 
 type EventsWrapperFetchProps = {
   city: string;
